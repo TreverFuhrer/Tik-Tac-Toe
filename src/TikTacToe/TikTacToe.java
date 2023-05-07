@@ -15,20 +15,16 @@ public class TikTacToe {
 		// Make first move of game
 		int compChoice = readyStart(xo);
 		int playerChoice, whoWon;
+		
 		// Determines who plays as X and O
 		if(compChoice == 0) {
 			System.out.println("You get the first move !!");
 			System.out.println("What will your move be?\n");
 			playerChoice = playerXOChoice(stdIn);
-			if(playerChoice == 1)
-				compChoice = 2;
-			else
-				compChoice = 1;
+			compChoice = (playerChoice == 1 ? 2 : 1);
 		}
-		else if(compChoice == 1) 
-			playerChoice = 2;
-		else 
-			playerChoice = 1;
+		playerChoice = compChoice == 1 ? 2 : 1;
+		
 		// Play the game
 		whoWon = play(stdIn, xo, playerChoice, compChoice);
 		if(whoWon == 1) 
@@ -37,6 +33,7 @@ public class TikTacToe {
 			System.out.println("The Computer Won :(");
 		else 
 			System.out.println("Its a Tie...");
+		
 		// Check if wants to play again
 		do {
 			System.out.print("\nWhould you like to play again? (Yes or No) :");
@@ -112,12 +109,7 @@ public class TikTacToe {
 		if(xo[pos-1].equalsIgnoreCase("X")||xo[pos-1].equalsIgnoreCase("O")) {
 			return -1;
 		}
-		if(xoPick == 1) {
-			xo[pos-1] = "X";
-		}
-		else {
-			xo[pos-1] = "O";
-		}
+		xo[pos-1] = xoPick == 1 ? "X" : "O";
 		printBoard(xo);
 		return 0;
 	}
@@ -130,17 +122,15 @@ public class TikTacToe {
 	 * @param xo array
 	 */
 	public static boolean checkIfWon(String[] xo) {
-		if((xo[0].equals(xo[1]) && xo[1].equals(xo[2]) && !xo[0].equals(" ")) || // Top Horizontal
-		   (xo[3].equals(xo[4]) && xo[4].equals(xo[5]) && !xo[3].equals(" ")) || // Middle Horizontal
-		   (xo[6].equals(xo[7]) && xo[7].equals(xo[8]) && !xo[6].equals(" ")) || // Bottom Horizontal
-		   (xo[0].equals(xo[3]) && xo[3].equals(xo[6]) && !xo[0].equals(" ")) || // Left Vertical
-		   (xo[1].equals(xo[4]) && xo[4].equals(xo[7]) && !xo[1].equals(" ")) || // Middle Vertical
-		   (xo[2].equals(xo[5]) && xo[5].equals(xo[8]) && !xo[2].equals(" ")) || // Right Vertical
-		   (xo[0].equals(xo[4]) && xo[4].equals(xo[8]) && !xo[0].equals(" ")) || // TopLeft Diagonal
-		   (xo[2].equals(xo[4]) && xo[4].equals(xo[6]) && !xo[2].equals(" ")))   // TopRight Diagonal
-			return true;
-		else
-			return false;
+		return ((xo[0].equals(xo[1]) && xo[1].equals(xo[2]) && !xo[0].equals(" ")) || // Top Horizontal
+				   (xo[3].equals(xo[4]) && xo[4].equals(xo[5]) && !xo[3].equals(" ")) || // Middle Horizontal
+				   (xo[6].equals(xo[7]) && xo[7].equals(xo[8]) && !xo[6].equals(" ")) || // Bottom Horizontal
+				   (xo[0].equals(xo[3]) && xo[3].equals(xo[6]) && !xo[0].equals(" ")) || // Left Vertical
+				   (xo[1].equals(xo[4]) && xo[4].equals(xo[7]) && !xo[1].equals(" ")) || // Middle Vertical
+				   (xo[2].equals(xo[5]) && xo[5].equals(xo[8]) && !xo[2].equals(" ")) || // Right Vertical
+				   (xo[0].equals(xo[4]) && xo[4].equals(xo[8]) && !xo[0].equals(" ")) || // TopLeft Diagonal
+				   (xo[2].equals(xo[4]) && xo[4].equals(xo[6]) && !xo[2].equals(" ")))
+				? true : false;
 	}
 	
 	
@@ -172,10 +162,7 @@ public class TikTacToe {
 			i = stdIn.next();
 		}while(!(i.equalsIgnoreCase("x") || i.equalsIgnoreCase("o")));
 		
-		if(i.equalsIgnoreCase("x")) 
-			return 1;
-		else 
-			return 2;
+		return i.equalsIgnoreCase("x") ? 1 : 2;
 	}
 	
 	
